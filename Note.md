@@ -12,6 +12,8 @@
 - En JavaScript, les erreurs surviennent **pendant l'exécution** (contrairement au C# où elles sont détectées à la compilation).
 - Les erreurs sont donc **plus difficiles à détecter**, nécessitant une grande rigueur.
 
+---
+
 ##  Commandes Node.js
 
 - `node -v` : Voir la version de Node.js.
@@ -19,13 +21,15 @@
 - `npm` : **Node Package Manager** (gestionnaire de paquets pour JavaScript).
 - `npm -v` : Voir la version de npm.
 
+---
+
 ##  Déclaration des Variables
 
 | Mot-clé  | Modifiable ? | Portée |
 |----------|-------------|--------|
 | `const`  |  Non      | Bloc   |
-| `let`    |  Oui      | Bloc   |
-| `var`    |  Oui      | Fonction (⚠️ à éviter) |
+| `let`    |   Oui      | Bloc   |
+| `var`    |  Oui      | Fonction ( à éviter) |
 
 ###  Pourquoi éviter `var` ?
 - Problèmes de **portée et de hoisting**.
@@ -37,15 +41,17 @@
 - **Nom descriptif en camelCase**.
 - **Une variable = Une responsabilité**.
 
-## 📝 Chaînes de Caractères
+---
 
-### Caractéristiques
+##  Chaînes de Caractères
+
+###  Caractéristiques
 - Séquence de caractères **UTF-16**.
 - **Immuables** (les méthodes créent de nouvelles chaînes).
 - **Indexées à partir de `0`**.
 - Peuvent être déclarées avec **""** ou **''**.
 
-### Méthodes principales
+###  Méthodes principales
 
 | Type            | Méthodes |
 |----------------|----------------------------------|
@@ -54,10 +60,12 @@
 | **Recherche** | `indexOf()`, `includes()`, `startsWith()` |
 | **Découpage** | `split()` |
 
-### Attention
+###  Attention
 - **Retour implicite** : Si une fonction n'a pas d'accolades `{}`, le `return` est implicite.
 
-##  Comparaison en JavaScript
+---
+
+## 🔄 Comparaison en JavaScript
 
 | Opérateur | Comparaison |
 |-----------|--------------------------------|
@@ -66,22 +74,38 @@
 | `!=`  | Différent en **valeur** (ex: `"1" != 1` → `false`) |
 | `!==` | Différent en **valeur et type** (ex: `"1" !== 1` → `true`) |
 
-## Précision des Calculs
+---
+
+##  Précision des Calculs
 
 - **JavaScript n'est pas conçu pour des calculs précis**.
 - Problèmes de précision notamment avec les nombres à virgule flottante.
 
+---
 
-Javascript est mono thread 
-un seul fil d'exécution , doit rester réactif , les fonctions son gérées les un après les autres lappel d'avant doit être traiter avant  que celle d'après soit traiter
+##  JavaScript est Mono-Thread
 
-opération qui prennent du temps 
-requete réseau , opération disques (sa bloque le thrad sa prend du temps) , animations complexes
+- Un seul fil d'exécution.
+- Doit rester **réactif**.
+- Les fonctions sont gérées **les unes après les autres**.
+- Une opération doit être terminée avant que la suivante ne soit exécutée.
 
-programme : est une enorme boucles 
+###  Opérations qui prennent du temps
+- Requêtes réseau.
+- Opérations disque (lecture/écriture de fichiers).
+- Animations complexes.
 
-call stack = pile d'appel c'est la pile d'appel de notre code source
-la majorité des appel son les execution immeditate et 
+###  Programmation événementielle
+- Un programme JavaScript fonctionne comme **une énorme boucle**.
+
+###  Call Stack (Pile d'appels)
+- Gère l'exécution du code source.
+- La majorité des appels sont **exécutés immédiatement**.
+
+---
+
+##  Programmation Asynchrone
+
 
 ```mermaid {scale: 0.7}    
 graph TD 
@@ -99,28 +123,54 @@ A[Code JavaScript] -->B[Call Stack]
   style G fill:#35495e 
   ```
 
-  set timeout permet de simuler l'asyncrhrone 
-  l'usage de callback c'est comme ça que js synchronise au depart
+###  `setTimeout()`
+- Permet de **simuler l'asynchrone**.
+- Exécute une fonction après un délai donné.
 
+###  Callbacks
+- Une **fonction passée en paramètre** d'une autre fonction.
+- Utilisée pour exécuter du code après une opération asynchrone.
 
-  pROMESSE EST UN OBJET QUI REPR2SENTE UNE OPERATION ASYNCRHONE EN JAVASCRIPT
-  il a un etat cette objet qui petu prendre pending  , fullfilled , rejected
-  tout les operations asyncrhone on trois etats une appel https c'est pareils
-  un objet ce déclare avec "new"
-  call back est une fonction passer en paramètres d'une autre fonctions
+### 🔮 Promesses (`Promise`)
+- Objet représentant **une opération asynchrone** en JavaScript.
+- Trois états possibles :
+  - `pending` (en attente)
+  - `fulfilled` (résolue)
+  - `rejected` (échouée)
 
-  api = interface de programmation 
-  api c'est tout les outils qu'on utilise map c'est une api de node
+### 📡 API
+- **Interface de Programmation**.
+- Exemple : `fetch()` est une API permettant de faire des requêtes HTTP.
+- **Node.js contient des API natives** (modules intégrés).
 
-  il y a plusieurs module possible (les modules natif) sur la doc notjs c'est bien présenter 
-  npm = gestionnaire de paquets 
-  utiliser npm pour nos projet node
-  lorsque on place le module requipe on peut passer nimporte quel fichier sur notre appli
+---
 
-  export nommé pour lutiliser on met export devant et la variable qu,on veut exporter au debut on peut avoir plusieurs export et si on fait u n export nommé il faut avoir une syntaxe particulière 
+##  Modules et NPM
 
-  interface de ligne de commande = cli 
-  npm js. com = tout les dependance lié a npm
-  si vous télecharger un paquet qui n'est pas maintenue donc peut etre dangereux et pas compatible a notre version de node
+- **`npm` (Node Package Manager)** est un **gestionnaire de paquets**.
+- Permet d'installer, partager et gérer des **bibliothèques JavaScript**.
 
-  le node module TOUJOURS ignorer sur git TOUJOURS -2
+###  Modules en Node.js
+- Un module peut être **interne** ou **externe**.
+- Exemple de module natif : `fs` pour gérer les fichiers.
+- Utilisation des **`require` et `import/export`** pour charger des modules.
+
+###  Toujours ignorer `node_modules/` sur Git
+
+Dans `.gitignore`, ajouter :
+```plaintext
+node_modules/
+```
+
+---
+
+##  Interface de Ligne de Commande (CLI)
+
+- **CLI (Command Line Interface)** : Exécuter des commandes via un terminal.
+- `npmjs.com` contient **toutes les dépendances compatibles avec npm**.
+-  **Télécharger un paquet non maintenu peut être dangereux et incompatible avec notre version de Node.js**.
+
+---
+
+ **Ces notes te serviront pour bien comprendre et structurer ton apprentissage en JavaScript !** 
+
